@@ -3,7 +3,7 @@ import Layout from '../../components/Layout';
 import {Form, Button, Input, Message} from 'semantic-ui-react';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
-
+import {Router, Link} from '../../routes';
 class CampaignNew extends Component {
   state = {
     minimumContribution: '',
@@ -19,6 +19,7 @@ class CampaignNew extends Component {
       await factory.methods.createCampaign(this.state.minimumContribution).send({
         from : accounts[0]
       });
+      Router.pushRoute('/');
     } catch (err) {
       this.setState({ errorMessage : err.message});
     }
