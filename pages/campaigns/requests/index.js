@@ -3,6 +3,7 @@ import Layout from '../../../components/Layout';
 import {Button, Table} from 'semantic-ui-react';
 import {Link} from '../../../routes';
 import Campaign from '../../../ethereum/campaign';
+import RequestRow from '../../../components/RequestRow';
 
 class RequestIndex extends Component {
 
@@ -10,7 +11,7 @@ static async getInitialProps(props) {
   const {address} = props.query;
   const campaign = Campaign(address);
   const requestCount = await campaign.methods.getRequestsCount().call();
-
+  const approversCount = await campaign.methods.approversCount().call();
   const requests = await Promise.all(
     Array(parseInt(requestCount)).fill().map((element, index) => {
       return campaign.methods.requests(index).call()
@@ -18,10 +19,22 @@ static async getInitialProps(props) {
   );
 
 
-  return {address, requests, requestCount};
+  return {address, requests, requestCount, approversCount};
 }
 
-
+renderRows() {
+  return this.props.requests.map((request, index) => {
+      return (
+        <RequestRow
+          key = {index}
+          id = {index}
+          request = {request}
+          address = {this.props.address}
+          approversCount = {this.props.approversCount}
+        />
+      );
+  });
+}
   render () {
     const {Header, Row, HeaderCell, Boday} = Table;
     return (
@@ -29,7 +42,7 @@ static async getInitialProps(props) {
         <h3>Requests</h3>
           <Link route = {`/campaigns/${this.props.address}/requests/new`}>
             <a>
-              <Button primary>Add request</Button>
+              <Button primary floated = "right" styple = {{marginBottom : 10}}>Add request</Button>
             </a>
           </Link>
           <Table>
