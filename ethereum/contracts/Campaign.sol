@@ -76,4 +76,17 @@ contract Campaign {
         request.complete = true;
     }
 
+    function getSummery() public view returns (uint, uint, uint, uint, address) {
+      return(
+          miniumContribution,
+          this.balance,
+          requests.length,
+          approversCount,
+          manager
+        );
+    }
+
+    function getRequestsCount() public view returns (uint) {
+      return requests.length;
+    }
 }
