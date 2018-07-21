@@ -36,7 +36,7 @@ renderRows() {
   });
 }
   render () {
-    const {Header, Row, HeaderCell, Boday} = Table;
+    const {Header, Row, HeaderCell, Body} = Table;
     return (
       <Layout>
         <h3>Requests</h3>
