@@ -12,6 +12,7 @@
   
   2. for vote system, if founder want to use some amount of money, they need to post on this website, and donater can vote for 
   founder's action, the founder can only use money after more than half of the donater approve this deal.
+     Note: for each operation, both client and adminastrator will have some operation charge
  
 # install instruction:
 
